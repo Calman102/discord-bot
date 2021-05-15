@@ -34,7 +34,7 @@ class UserDatabase:
     def backup(self):
         """ Makes a backup of the database. """
         self.connect()
-        self.db.backup(f"{self.filename.split('.')[0]}_BACKUP.{self.filename.split('.')[1]")
+        self.db.backup(f"{self.filename.split('.')[0]}_BACKUP.{self.filename.split('.')[1]}")
         print(f"[{timestamp()}] Backed up {self.filename}.")
         self.disconnect()
 
