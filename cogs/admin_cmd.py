@@ -34,7 +34,7 @@ class AdminCmd(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages = True)
-    async def purge(self,ctx,target: typing.Optional[discord.Member] = None, limit: int = 0):
+    async def purge(self, ctx, target: typing.Optional[discord.Member] = None, limit: int = 0):
         """
         target: The member who's messages you want to delete (optional)
         limit: the amount of messages to search through

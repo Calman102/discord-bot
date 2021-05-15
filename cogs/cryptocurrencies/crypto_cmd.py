@@ -96,9 +96,11 @@ class CryptoCmd(commands.Cog):
         await ctx.send(file=file, embed=embed_message)
         return
 
-
-    # Tries to find coinmarketcap data for the argument and put it in dictionary
     async def _try_cmc_lookup(self, arg):
+        """
+        Tries to find coinmarketcap data for the argument and put it in
+        a dictionary.
+        """
         # Set the headers for the request.
         headers = {
             "Accepts": "application/json",
@@ -122,8 +124,8 @@ class CryptoCmd(commands.Cog):
         return
 
     @commands.command()
-    async def plot_crypto(self, ctx, arg="BTC"):
-        """ Plot the 24 hour market price of a cryptocurrency (in USD). """
+    async def plot_crypto(self, ctx, arg="BTC", *args):
+        """ Plots the 24 hour market price of a cryptocurrency (in USD). """
         arg = arg.upper()  # Set the argument string for API
         title = f"{arg}-USD"  # Set the title for an embed
         rates = self.coinbase_client.get_product_historic_rates(
@@ -150,6 +152,17 @@ class CryptoCmd(commands.Cog):
         file = discord.File(fp=plot_binary, filename="plot.png")
         await ctx.send(file=file)
         plot_binary.close()
+
+    @commands.command()
+    @commands.is_owner()
+    async def test_CryptoCmd(self, ctx, *args):
+        """ Tests commands in the CryptoCmd cog. """
+        if "plot_crypto" in args:  # plot_crypto tests
+            await self.plot_crypto(ctx)                # test no args
+            await self.plot_crypto(ctx, "btc")         # test lowercase works
+            await self.plot_crypto(ctx, "BTC")         # test uppercase works
+            await self.plot_crypto(ctx, "btc", "ren")  # test multiple arguments
+            await self.plot_crypto(ctx, "ABC123")      # test invalid input
 
 
 # setup command for the cog

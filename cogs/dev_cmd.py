@@ -8,19 +8,18 @@ from discord.ext.commands.errors import (
 from discord.ext import commands
 
 
-# Cog used for reloading updated cogs while bot is running
 class DevCmd(commands.Cog):
-    # Initializes the cog.
+    """ Cog used for reloading updated cogs while bot is running. """
     def __init__(self, bot):
+        """ Initializes the cog. """
         self.bot = bot
         return
 
     @commands.command()
     @commands.is_owner()
     async def reload(self, ctx, arg):
-        """Reloads a single extension"""
+        """ Reloads a single extension. """
         self.bot.warning(f"Reloading {arg} extension.")
-        msg = ""
         # Search extension list for the argument
         for ext in self.bot.extension_list:
             if ext.endswith(arg):
@@ -42,7 +41,7 @@ class DevCmd(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def reload_all(self, ctx):
-        """Reloads all currentl running extensions"""
+        """ Reloads all currently running extensions. """
         self.bot.warning("Reloading all extensions.")
         msg = ""
         # Iterate through all extensions in bot's extension list and reload them
@@ -62,7 +61,7 @@ class DevCmd(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def reset_all(self, ctx):
-        """Rebuilds the extension list from scratch"""
+        """ Rebuilds the extension list from scratch. """
         self.bot.warning(
             "Begin reset of all extensions. Unloading extensions.")
         msg = ""
@@ -86,7 +85,7 @@ class DevCmd(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def test_logs(self, ctx):
-        """Generates test entries in the logs"""
+        """ Generates test entries in the logs. """
         self.bot.debug("TESTING TESTING TESTING")
         self.bot.info("This is a test message.")
         self.bot.warning("This is a warning, but we're still fine.")
